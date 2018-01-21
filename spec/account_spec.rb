@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe Account do
   let(:bank_id) { Bank.inser(name: "test_bank") }
-  let(:account_id) { Account.insert(owner: "test_user", bank_id: 1, balance: 25000) }
-  let(:account) { Account.find(id: account_id) }
+  let(:account) { Account.new(owner: "test_user", bank_id: 1, balance: 25000).save }
 
   describe "#withdraw_money" do
 

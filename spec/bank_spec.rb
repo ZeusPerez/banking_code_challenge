@@ -7,10 +7,10 @@ describe Bank do
     @bank = Bank.find(id: bank_id)
     @anoher_bank_id = Bank.insert(name: "another_test_bank")
     @another_bank = Bank.find(id: @anoher_bank_id)
-    one_account_id = Account.insert(owner: "one_test_user", bank_id: bank_id, balance: 5000)
-    another_account_id =  Account.insert(owner: "another_test_user", bank_id: bank_id, balance: 8000)
-    one_transfer = Transfer.insert(sender_id: one_account_id, receiver_id: another_account_id, amount: 500)
-    another_transfer = Transfer.insert(sender_id: another_account_id, receiver_id: one_account_id, amount: 800)
+    @one_account_id = Account.insert(owner: "one_test_user", bank_id: bank_id, balance: 5000)
+    @another_account_id =  Account.insert(owner: "another_test_user", bank_id: bank_id, balance: 8000)
+    Transfer.insert(sender_id: @one_account_id, receiver_id: @another_account_id, amount: 500)
+    Transfer.insert(sender_id: @another_account_id, receiver_id: @one_account_id, amount: 800)
   end
 
   describe "#accounts" do
@@ -41,7 +41,8 @@ describe Bank do
 
   describe "#print_transfers" do
     it "prints the transfer history" do
-      expect { @bank.print_transfers }.to output(/20\/01\/2018 11:23AM \/ 3 \/ 2 \/ 800.0/).to_stdout
+      transfer_string = "/ #{@one_account_id} / #{@another_account_id} / 500.0"
+      expect { @bank.print_transfers }.to output(/#{transfer_string}/).to_stdout
     end
   end
 end
