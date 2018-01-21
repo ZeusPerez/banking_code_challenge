@@ -22,8 +22,8 @@ class Bank < Sequel::Model
   def print_transfers
     transfer_history = transfers.sort_by { |transfer| transfer.transfer_date }.reverse
     puts
-    puts "TRANSFER HISTORY (date / sender / receiver / amount)"
-    puts "===================================================="
+    puts "TRANSFER HISTORY of #{self.name} (date / sender / receiver / amount)"
+    puts "===================================================================="
     transfer_history.each do |transfer|
       puts [transfer.transfer_date.strftime("%d/%m/%Y %I:%M%p"),
          transfer.sender_id,
