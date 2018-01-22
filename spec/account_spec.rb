@@ -21,4 +21,10 @@ describe Account do
       account.receive_money(200)
     end
   end
+
+  describe "#print_balance" do
+    it "prints the balnce of the account" do
+      expect { account.print_balance }.to output(/25000/).to_stdout
+    end
+  end
 end

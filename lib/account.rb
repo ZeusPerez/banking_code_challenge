@@ -19,6 +19,13 @@ class Account < Sequel::Model
     new_balance = self.balance + quantity
     self.update(balance: new_balance)
   end
+
+  def print_balance
+    puts
+    puts "Balance of the account #{self.id}"
+    puts "================================="
+    puts self.balance
+  end
 end
 
 class NotEnoughMoneyError < StandardError
