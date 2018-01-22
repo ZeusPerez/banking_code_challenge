@@ -21,14 +21,18 @@ def main_scenario
   print_information(jim_account)
   print_information(emma_account)
 
-  TransferAgent.new(jim_account.id, emma_account.id, 20_000).perform
-
+  begin
+    TransferAgent.new(jim_account.id, emma_account.id, 20_000).perform
+  rescue StandardError => error
+    puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    puts "#{error.class}: #{error.message}"
+    puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  end
   puts
   puts "AFTER THE TRANSFER"
 
   print_information(jim_account)
   print_information(emma_account)
 end
-
 
 main_scenario
